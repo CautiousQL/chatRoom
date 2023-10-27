@@ -12,9 +12,11 @@ console.log(databaseTime());
 </script>
 
 <template>
-    <div class="space-y-2">
-        <chatList></chatList>
+    <div class="flex justify-center">
+        <div class="space-y-2 w-5/12 p-2 max-w-lg min-w-max">
+            <chatList></chatList>
+            <sendBox></sendBox>
+            <getText></getText>
+        </div>
     </div>
-    <sendBox></sendBox>
-    <getText></getText>
 </template>

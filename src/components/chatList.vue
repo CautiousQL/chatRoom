@@ -1,5 +1,6 @@
 <script setup>
 import chatBox from "./chatBox.vue";
+import chatBoxMessage from "./chatBoxMessage.vue";
 </script>
 
 <script>
@@ -31,17 +32,20 @@ export default {
 </script>
 
 <template>
-    <div class="border-2 p-2 w-full" v-for="chat in chatRoom" :key="chat.id">
+    <div
+        class="w-full h-42 border-2 p-2 flex flex-row bg-slate-100 justify-center"
+        v-for="chat in chatRoom"
+        :key="chat.id"
+    >
         <chatBox>
             <div>
                 {{ chat.userName }}
-            </div>
-            <div>
                 {{ chat.time }}
             </div>
-            <div>
+
+            <chatBoxMessage class="bg-white w-72 h-24">
                 {{ chat.message }}
-            </div>
+            </chatBoxMessage>
         </chatBox>
     </div>
 </template>

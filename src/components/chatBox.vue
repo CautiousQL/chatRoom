@@ -1,8 +1,5 @@
 <template>
-    <img
-        class="w-24 h-24 md:w-48 md:h-48 rounded-full md:rounded-none"
-        src="../../public/userPhoto.jpg"
-    />
+    <img class="w-24 h-24 rounded-full" src="../../public/userPhoto.jpg" />
 
-    <div><slot></slot></div>
+    <div class="p-2"><slot></slot></div>
 </template>
