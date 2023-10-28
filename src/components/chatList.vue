@@ -32,20 +32,22 @@ export default {
 </script>
 
 <template>
-    <div
-        class="w-full h-42 border-2 p-2 flex flex-row bg-slate-100 justify-center"
-        v-for="chat in chatRoom"
-        :key="chat.id"
-    >
-        <chatBox>
-            <div>
-                {{ chat.userName }}
-                {{ chat.time }}
-            </div>
+    <div class="space-y-2 h-5/6 w-92 pr-6 pl-2 max-w-lg min-w-max bg-slate-50">
+        <div
+            class="w-full h-42 p-2 flex flex-row justify-center"
+            v-for="chat in chatRoom"
+            :key="chat.id"
+        >
+            <chatBox>
+                <div>
+                    {{ chat.userName }}
+                    {{ chat.time }}
+                </div>
 
-            <chatBoxMessage class="bg-white w-72 h-24">
-                {{ chat.message }}
-            </chatBoxMessage>
-        </chatBox>
+                <chatBoxMessage class="bg-white w-72 h-24 text-left">
+                    {{ chat.message }}
+                </chatBoxMessage>
+            </chatBox>
+        </div>
     </div>
 </template>

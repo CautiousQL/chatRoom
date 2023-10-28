@@ -11,6 +11,8 @@
     border: 1px solid #ccc;
     position: relative;
     overflow-wrap: break-word;
+    border-radius: 6px;
+    padding: 4px;
 }
 
 .chatMessage::before {

@@ -3,5 +3,10 @@ import sendItem from "../assets/sendItem";
 </script>
 
 <template>
-    <input type="text" v-model="sendItem.message" placeholder="hello" />
+    <input
+        class="rounded-md border-2 pl-2"
+        type="text"
+        v-model="sendItem.message"
+        placeholder="hello"
+    />
 </template>
