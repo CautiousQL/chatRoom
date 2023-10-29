@@ -4,6 +4,7 @@ import symbol from "./symbol.js";
 export default {
     symbol: symbol,
     message: "",
-    userName: "userName",
+    userName: "",
+    userName_: "",
     time: "",
 };

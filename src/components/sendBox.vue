@@ -1,11 +1,48 @@
 <script setup>
-import buttonSend from "./buttonSend.vue";
-import inputBox from "./inputBox.vue";
+import { reactive } from "vue";
+import userInput from "./inputName.vue";
+import messageInput from "./inputMess.vue";
+import _axios from "../assets/axiosSetting";
+import chatItem from "../assets/sendItem.js";
+import userData from "../assets/user.js";
+import { send } from "../assets/request";
+
+var state = reactive({
+    judge: false,
+    chatItem: chatItem,
+});
+
+const sendName = () => {
+    chatItem.userName = userData.userName_;
+    state.judge = !!chatItem.userName.length;
+};
 </script>
 
 <template>
     <div class="flex flex-row mb-2 pr-2 rounded-md border-2">
-        <inputBox class="flex-atuo w-80 mr-6 mt-2 mb-2"></inputBox>
-        <buttonSend class="flex-atuo w-24 mt-2 mb-2"></buttonSend>
+        <messageInput
+            v-if="state.judge"
+            class="flex-atuo w-80 mr-6 mt-2 mb-2"
+            placeholder="Input message"
+        ></messageInput
+        ><userInput
+            v-else
+            class="flex-atuo w-80 mr-6 mt-2 mb-2"
+            placeholder="Input username"
+        ></userInput>
+
+        <button
+            v-if="state.judge"
+            class="px-4 py-2 font-semibold text-sm bg-indigo-500 text-white rounded-full shadow-sm hover:bg-indigo-600 focus:ring-2"
+            @click="send"
+        >
+            Send Message</button
+        ><button
+            v-else
+            class="px-4 py-2 font-semibold text-sm bg-indigo-500 text-white rounded-full shadow-sm hover:bg-indigo-600 focus:ring-2"
+            @click="sendName"
+        >
+            Set username
+        </button>
     </div>
 </template>
