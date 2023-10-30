@@ -22,7 +22,6 @@ const send = async () => {
 
         await axios.request(_axios("POST")).then(function (response) {
             // console.log(response.data);
-            chatItem.message = "";
         });
     } catch (error) {
         console.error(error);
