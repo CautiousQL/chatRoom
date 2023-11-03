@@ -10,7 +10,7 @@ const chatArr = (response) => {
         };
         chatRoom.push(chatItem);
     }
-    console.log(chatRoom);
+    // console.log(chatRoom);
 };
 
 export default chatArr;

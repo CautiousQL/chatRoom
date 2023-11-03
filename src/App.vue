@@ -1,13 +1,7 @@
 <script setup>
 import chatList from "./components/chatList.vue";
 import sendBox from "./components/sendBox.vue";
-</script>
-
-<script>
-import databaseTime from "./assets/getTime.js";
 import _axios from "../src/assets/axiosSetting.js";
-
-console.log(databaseTime());
 </script>
 
 <template>

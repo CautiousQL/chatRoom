@@ -6,6 +6,8 @@ import _axios from "../assets/axiosSetting";
 import chatItem from "../assets/sendItem.js";
 import userData from "../assets/user.js";
 import { send } from "../assets/request";
+import config from "../settings/config";
+import successfullyName from "../assets/sweetalert";
 
 var state = reactive({
     judge: false,
@@ -14,7 +16,12 @@ var state = reactive({
 
 const sendName = () => {
     chatItem.userName = userData.userName_;
+    console.log(chatItem.userName);
     state.judge = !!chatItem.userName.length;
+    successfullyName({
+        title: `欢迎你 ${chatItem.userName}`,
+        timer: config.time,
+    }) === !!chatItem.userName.length;
 };
 
 const clearInput = () => {
@@ -28,11 +35,16 @@ const clearInput = () => {
             v-if="state.judge"
             class="flex-atuo w-80 h-8 mr-6 mt-2 mb-2"
             placeholder="Input message"
+            @keyup.enter.native="
+                send();
+                clearInput();
+            "
         ></messageInput
         ><userInput
             v-else
             class="flex-atuo w-80 h-8 mr-6 mt-2 mb-2"
             placeholder="Input username"
+            @keyup.enter.native="sendName()"
         ></userInput>
 
         <button
