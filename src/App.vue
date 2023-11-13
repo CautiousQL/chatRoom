@@ -6,9 +6,11 @@ import _axios from "../src/assets/axiosSetting.js";
 
 <template>
     <div class="flex h-screen items-center justify-center content-center">
-        <div class="rounded-md border-2" style="height: 720px">
-            <chatList class="overflow-auto p-2"></chatList>
-            <sendBox class="p-2 m-2 mt-6"></sendBox>
+        <div
+            class="rounded-md sm:border-2 w-screen h-screen sm:w-auto sm:h-4/6 bg-[#0a0a0a] sm:bg-white"
+        >
+            <chatList class="overflow-auto p-2" style="height: 88%"></chatList>
+            <sendBox class="p-1 sm:m-2 sm:mt-6" style="height: 8%"></sendBox>
         </div>
     </div>
 </template>

@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, reactive } from "vue";
+import { onMounted, reactive, ref, nextTick } from "vue";
 import _axios from "../assets/axiosSetting.js";
 import userData from "../assets/user.js";
 import { get } from "../assets/request.js";
@@ -14,6 +14,17 @@ const data = reactive({
     chatRoom: [],
 });
 
+const chatRoomRef = ref(null);
+
+const scrollBottom = () => {
+    nextTick(() => {
+        const chatRoomElement = chatRoomRef.value;
+        chatRoomElement.scrollTop = chatRoomElement.scrollHeight;
+        const chatRoomHeight = chatRoomElement.clientHeight;
+        console.log(chatRoomHeight);
+    });
+};
+
 onMounted(() => {
     get();
 
@@ -23,6 +34,7 @@ onMounted(() => {
         .on("value", (snapshot) => {
             // console.log(snapshot.val());
             data.chatRoom = snapshot.val();
+            scrollBottom();
         });
 });
 
@@ -38,9 +50,14 @@ const leave = () => {
 </script>
 
 <template>
-    <div class="space-y-2 h-5/6 w-92 pr-6 pl-2 max-w-lg min-w-max bg-slate-50">
+    <!-- 聊天列表 -->
+    <div
+        ref="chatRoomRef"
+        class="w-screen h-5/6 space-y-2 sm:w-64 sm:pr-16 sm:pl-16 max-w-lg min-w-max bg-slate-50"
+    >
+        <!-- 聊天框循环 -->
         <div
-            class="w-full h-42 p-2 flex flex-row justify-center"
+            class="w-full h-auto pl-2 mr-2 sm:w-5/6 sm:h-42 sm:m-4 sm:pb-4 flex flex-row justify-center"
             v-for="chat in data.chatRoom"
             :key="chat.id"
         >
@@ -55,7 +72,7 @@ const leave = () => {
                 </div>
 
                 <chatBoxMessage
-                    class="bg-white w-72 h-24 text-left"
+                    class="w-42 h-auto bg-white sm:w-64 sm:h-auto text-left"
                     @mouseenter="enter()"
                     @mouseleave="leave()"
                 >

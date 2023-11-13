@@ -6,8 +6,10 @@
 
 <style>
 .chatMessage {
-    width: 300px;
-    height: 80px;
+    min-width: 250px;
+    max-width: 250px;
+    min-height: 40px;
+    max-height: auto;
     border: 1px solid #ccc;
     position: relative;
     overflow-wrap: break-word;
@@ -19,7 +21,7 @@
     content: "";
     position: absolute;
     left: -10px;
-    top: 34px;
+    top: 10px;
     border-top: 6px solid transparent;
     border-bottom: 6px solid transparent;
     border-right: 10px solid #ccc;
@@ -29,7 +31,7 @@
     content: "";
     position: absolute;
     left: -8px;
-    top: 34px;
+    top: 10px;
     border-top: 6px solid transparent;
     border-bottom: 6px solid transparent;
     border-right: 10px solid #fff;
