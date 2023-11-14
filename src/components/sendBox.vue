@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, nextTick, ref } from "vue";
+import { reactive } from "vue";
 import userInput from "./inputName.vue";
 import messageInput from "./inputMess.vue";
 import _axios from "../assets/axiosSetting";
@@ -16,9 +16,8 @@ const data = reactive({
 
 const sendName = () => {
     chatItem.userName = userData.userName_;
-    // data.judge = !!chatItem.userName.length; //判断长度的另外写法
+    data.judge = !!chatItem.userName.length;
     if (chatItem.userName.length) {
-        data.judge = true;
         successAlert({
             title: `欢迎你 ${chatItem.userName}`,
             timer: config.time,
@@ -31,33 +30,32 @@ const sendName = () => {
     }
 };
 
-const reScrollBottom = () => {
-    //worked
-    console.log("123");
-    // scrollBottom();
-};
-
 const clearInput = () => {
     chatItem.message = "";
 };
 
-const messageRef = ref(null);
 const keepfocus = () => {
-    nextTick(() => {
-        const messageElement = messageRef.value;
-        messageElement.inputRef.focus();
-    });
+    const messageElement = document.getElementById("messageInput");
+    messageElement.focus();
 };
+// 需要更新，之前代码为 null
+// const messageRef = ref(null);
+// const keepfocus = async () => {
+//     await nextTick(() => {
+//         console.log(data.judge); //测试为true
+//         const messageElement = messageRef.value;
+//         console.log(messageRef.value); // 测试为null
+//         messageElement.focus();
+//     });
+// };
 </script>
 
 <template>
     <div class="flex flex-row h-16 sm:mb-2 sm:pr-2">
         <messageInput
             v-if="data.judge"
-            :ref="messageRef"
-            class="w-72 h-8 sm:w-80 sm:h-8 flex-atuo mr-6 mt-2 mb-2"
+            class="w-72 h-8 sm:w-9/12 sm:h-12 flex-atuo mr-6 mt-2 mb-2"
             placeholder="Input message"
-            @focus="reScrollBottom()"
             @keyup.enter.native="
                 send();
                 clearInput();
@@ -65,14 +63,14 @@ const keepfocus = () => {
         ></messageInput
         ><userInput
             v-else
-            class="w-72 h-8 sm:w-80 sm:h-8 flex-atuo mr-6 mt-2 mb-2"
+            class="w-72 h-8 sm:w-9/12 sm:h-12 flex-atuo mr-6 mt-2 mb-2"
             placeholder="Input username"
             @keyup.enter.native="sendName()"
         ></userInput>
 
         <button
             v-if="data.judge"
-            class="w-20 h-8 px-4 py-2 mt-2 font-semibold text-sm bg-indigo-500 text-white rounded-full shadow-sm hover:bg-indigo-600 focus:ring-2"
+            class="w-20 h-8 px-4 py-2 mt-2 sm:w-24 sm:h-12 font-semibold text-sm bg-indigo-500 text-white rounded-full shadow-sm hover:bg-indigo-600 focus:ring-2"
             @click="
                 send();
                 clearInput();
@@ -82,7 +80,7 @@ const keepfocus = () => {
             Send</button
         ><button
             v-else
-            class="w-20 h-8 px-4 py-2 mt-2 font-semibold text-sm bg-indigo-500 text-white rounded-full shadow-sm hover:bg-indigo-600 focus:ring-2"
+            class="w-20 h-8 px-4 py-2 mt-2 sm:w-24 sm:h-12 font-semibold text-sm bg-indigo-500 text-white rounded-full shadow-sm hover:bg-indigo-600 focus:ring-2"
             @click="sendName()"
         >
             Set

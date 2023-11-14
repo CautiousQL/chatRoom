@@ -2,16 +2,17 @@
 import chatItem from "../assets/sendItem.js";
 import { ref } from "vue";
 
+const inputRef = ref(null);
 defineProps({
     placeholder: "",
     chatItem: chatItem.message,
 });
-const inputRef = ref(null);
 </script>
 
 <template>
     <input
-        ref="inputRef"
+        id="messageInput"
+        :ref="inputRef"
         type="text"
         class="rounded-md border-2 pl-2"
         v-model="chatItem.message"

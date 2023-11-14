@@ -6,22 +6,19 @@ import { get } from "../assets/request.js";
 import chatBox from "./chatBox.vue";
 import chatBoxMessage from "./chatBoxMessage.vue";
 import "../assets/firebaseSetting.js";
+import { showTime, enter, leave } from "../assets/showTime";
 
 const data = reactive({
-    see: false,
-    index: 0,
+    showTime,
     userData,
     chatRoom: [],
 });
 
 const chatRoomRef = ref(null);
-
 const scrollBottom = () => {
     nextTick(() => {
         const chatRoomElement = chatRoomRef.value;
         chatRoomElement.scrollTop = chatRoomElement.scrollHeight;
-        const chatRoomHeight = chatRoomElement.clientHeight;
-        console.log(chatRoomHeight);
     });
 };
 
@@ -37,16 +34,6 @@ onMounted(() => {
             scrollBottom();
         });
 });
-
-const enter = () => {
-    data.see = true;
-    data.index = 3;
-};
-
-const leave = () => {
-    data.see = false;
-    data.index = null;
-};
 </script>
 
 <template>
@@ -66,7 +53,7 @@ const leave = () => {
                     <b>
                         {{ chat.userName }}
                     </b>
-                    <div v-show="data.see" class="ml-3">
+                    <div v-show="showTime.see" class="ml-3">
                         {{ chat.time }}
                     </div>
                 </div>
