@@ -49,11 +49,15 @@ onMounted(() => {
             :key="chat.id"
         >
             <chatBox>
-                <div class="flex flex-row">
-                    <b>
+                <div class="flex flex-row text-sm">
+                    <b style="min-width: 100px; max-width: 100px">
                         {{ chat.userName }}
                     </b>
-                    <div v-show="showTime.see" class="ml-3">
+                    <div
+                        v-show="showTime.see"
+                        class="ml-2"
+                        style="min-width: 140px; max-width: 140px"
+                    >
                         {{ chat.time }}
                     </div>
                 </div>

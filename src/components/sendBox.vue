@@ -1,72 +1,80 @@
 <script setup>
-import { reactive } from "vue";
-import userInput from "./inputName.vue";
-import messageInput from "./inputMess.vue";
+import { reactive, ref, nextTick } from "vue";
 import _axios from "../assets/axiosSetting";
 import chatItem from "../assets/sendItem.js";
 import userData from "../assets/user.js";
 import { send } from "../assets/request";
-import config from "../settings/config";
-import { successAlert, errorAlert } from "../assets/sweetalert";
+import judgeLength from "../assets/judgeLength";
+// import userInput from "./inputName.vue";
+// import messageInput from "./inputMess.vue";
 
 const data = reactive({
     judge: false,
     chatItem: chatItem,
 });
 
+//maxUserNameLength_CN = 7 ; maxUserNameLength_US && digital = 11
 const sendName = () => {
     chatItem.userName = userData.userName_;
+    judgeLength(chatItem.userName);
     data.judge = !!chatItem.userName.length;
-    if (chatItem.userName.length) {
-        successAlert({
-            title: `欢迎你 ${chatItem.userName}`,
-            timer: config.time,
-        });
-    } else {
-        errorAlert({
-            title: `名称长度不可以为 0`,
-            timer: config.time,
-        });
-    }
 };
 
 const clearInput = () => {
     chatItem.message = "";
 };
 
+const messageRef = ref(null);
 const keepfocus = () => {
-    const messageElement = document.getElementById("messageInput");
-    messageElement.focus();
+    nextTick(() => {
+        const messageElement = messageRef.value;
+        console.log(messageElement);
+        messageElement.focus();
+    });
 };
-// 需要更新，之前代码为 null
-// const messageRef = ref(null);
-// const keepfocus = async () => {
-//     await nextTick(() => {
-//         console.log(data.judge); //测试为true
-//         const messageElement = messageRef.value;
-//         console.log(messageRef.value); // 测试为null
-//         messageElement.focus();
-//     });
-// };
 </script>
 
 <template>
     <div class="flex flex-row h-16 sm:mb-2 sm:pr-2">
-        <messageInput
+        <!-- <messageInput
             v-if="data.judge"
+            ref="messageRef"
             class="w-72 h-8 sm:w-9/12 sm:h-12 flex-atuo mr-6 mt-2 mb-2"
             placeholder="Input message"
             @keyup.enter.native="
                 send();
                 clearInput();
             "
-        ></messageInput
-        ><userInput
+        >
+        </messageInput> -->
+
+        <!-- <userInput
             v-else
             class="w-72 h-8 sm:w-9/12 sm:h-12 flex-atuo mr-6 mt-2 mb-2"
             placeholder="Input username"
             @keyup.enter.native="sendName()"
-        ></userInput>
+        ></userInput> -->
+        <input
+            v-if="data.judge"
+            ref="messageRef"
+            type="text"
+            class="w-72 h-8 sm:w-9/12 sm:h-12 flex-atuo mr-6 mt-2 mb-2 rounded-md border-2 pl-2"
+            placeholder="Input message"
+            v-model="chatItem.message"
+            @keyup.enter.native="
+                send();
+                clearInput();
+            "
+        />
+
+        <input
+            type="text"
+            v-else
+            class="w-72 h-8 sm:w-9/12 sm:h-12 flex-atuo mr-6 mt-2 mb-2 rounded-md border-2 pl-2"
+            placeholder="Input username"
+            v-model="userData.userName_"
+            @keyup.enter.native="sendName()"
+        />
 
         <button
             v-if="data.judge"
