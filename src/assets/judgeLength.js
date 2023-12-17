@@ -29,6 +29,7 @@ const judgeLength = (userSetName) => {
         userNameLength = arrLength(userNameArr_) + arrLength(userNameArr_CN);
     }
 
+    //maxUserNameLength_CN = 7 ; maxUserNameLength_US && digital = 11
     if (userNameLength > 0 && userNameLength < 11) {
         successAlert({
             title: `欢迎你 ${userSetName}`,
