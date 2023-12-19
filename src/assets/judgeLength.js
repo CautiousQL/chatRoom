@@ -21,7 +21,12 @@ const judgeLength = (userSetName) => {
     const userNameArr_ = userSetName.match(pattern_);
     let userNameLength = null;
 
-    if (userNameArr_CN == null) {
+    if (userNameArr_CN == null && userNameArr_ == null) {
+        return errorAlert({
+            title: `名称长度不可以为 0`,
+            timer: config.time,
+        });
+    } else if (userNameArr_CN == null) {
         userNameLength = arrLength(userNameArr_);
     } else if (userNameArr_ == null) {
         userNameLength = arrLength(userNameArr_CN);
